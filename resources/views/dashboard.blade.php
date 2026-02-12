@@ -36,7 +36,7 @@
                     <span class="font-bold text-sm uppercase">Inventario</span>
                 </a>
 
-                <a href="{{ route('ventas.cliente') }}" class="flex flex-col items-center justify-center p-6 bg-[#FDF2D0]/40 rounded-2xl hover:bg-[#FDF2D0] transition-all group border border-transparent hover:border-[#D4AF37]">
+                <a href="{{ route('ventas.buscar') }}" class="flex flex-col items-center justify-center p-6 bg-[#FDF2D0]/40 rounded-2xl hover:bg-[#FDF2D0] transition-all group border border-transparent hover:border-[#D4AF37]">
                     <span class="text-4xl mb-3 group-hover:scale-110 transition-transform">💰</span>
                     <span class="font-bold text-sm uppercase">Nueva Venta</span>
                 </a>

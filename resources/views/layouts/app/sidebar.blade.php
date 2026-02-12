@@ -8,7 +8,7 @@
         <flux:navlist.item icon="home" href="{{ route('dashboard') }}" wire:navigate>Panel Principal</flux:navlist.item>
         <flux:navlist.item icon="archive-box" href="{{ route('inventory.index') }}">Inventario</flux:navlist.item>
         <flux:navlist.item icon="clock" href="{{ route('reportes.index') }}" wire:navigate>Historial de Cambios</flux:navlist.item>
-        <flux:navlist.item icon="currency-dollar" href="{{ route('ventas.cliente') }}">Ventas</flux:navlist.item>
+        <flux:navlist.item icon="currency-dollar" href="{{ route('ventas.buscar') }}">Ventas</flux:navlist.item>
         
         @if(auth()->user()->rol === 'maestro')
             <div class="mt-4 px-4">
