@@ -29,7 +29,7 @@
 
         {{-- Panel de Acciones Rápidas --}}
         <div class="bg-white p-8 rounded-3xl shadow-xl border border-[#D4AF37]/20">
-            <h3 class="text-center font-bold text-lg mb-6 uppercase tracking-wider">¿Qué deseas gestionar?</h3>
+            <h3 class="text-center font-bold text-lg mb-6 uppercase tracking-wider">Actividades</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <a href="{{ route('inventory.create') }}" class="flex flex-col items-center justify-center p-6 bg-[#FDF2D0]/40 rounded-2xl hover:bg-[#FDF2D0] transition-all group border border-transparent hover:border-[#D4AF37]">
                     <span class="text-4xl mb-3 group-hover:scale-110 transition-transform">📦</span>

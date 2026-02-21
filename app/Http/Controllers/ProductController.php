@@ -44,7 +44,7 @@ class ProductController extends Controller
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
-                'accion' => 'Agregar',
+                'accion' => 'Agrego',
                 'cantidad_anterior' => 0,
                 'cantidad_nueva' => $request->inventario,
                 'created_at' => now(),
@@ -96,7 +96,7 @@ class ProductController extends Controller
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
-                'accion' => 'Actualizar',
+                'accion' => 'Actualizo',
                 // Quitamos 'fecha' porque la base de datos no la tiene
                 'cantidad_anterior' => $cantidadAnterior,
                 'cantidad_nueva' => $request->inventario,
@@ -124,7 +124,7 @@ class ProductController extends Controller
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
-                'accion' => 'Eliminar',
+                'accion' => 'Elimino',
                 'cantidad_anterior' => $producto->inventario,
                 'cantidad_nueva' => 0,
                 'created_at' => now(),

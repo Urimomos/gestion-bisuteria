@@ -1,8 +1,7 @@
 <x-layouts::master>
     <div class="p-6 lg:p-8 max-w-4xl mx-auto">
         <div class="mb-8">
-            <h2 class="text-2xl font-bold text-[#1A1A1A]">Nuevo Producto</h2>
-            <p class="text-gray-600">Registra una nueva pieza siguiendo el esquema técnico del cliente.</p>
+            <h2 class="text-2xl font-bold text-[#1A1A1A]">Registro de Nuevo Producto</h2>
         </div>
 
         {{-- Mostrar errores si algo falla en la validación --}}
