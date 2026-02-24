@@ -15,10 +15,11 @@
                 <thead class="bg-[#FDF2D0]/50 border-b border-[#D4AF37]/20">
                     <tr>
                         <th class="p-4 text-xs font-bold uppercase tracking-widest">Imagen</th>
-                        <th class="p-4 text-xs font-bold uppercase tracking-widest">Nombre</th>
-                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-center">Stock (Inventario)</th>
-                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-right">Costo (Precompra)</th>
-                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-right">Precio (Preventa)</th>
+                        <th class="p-4 text-xs font-bold uppercase tracking-widest">Producto</th>
+                        <th class="p-4 text-xs font-bold uppercase tracking-widest">Categoría</th>
+                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-center">Stock</th>
+                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-right">Costo</th>
+                        <th class="p-4 text-xs font-bold uppercase tracking-widest text-right">Precio</th>
                         <th class="p-4 text-xs font-bold uppercase tracking-widest text-center">Acciones</th>
                     </tr>
                 </thead>
@@ -32,22 +33,30 @@
                                 <div class="size-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">🖼️</div>
                             @endif
                         </td>
-                        <td class="p-4 font-bold text-[#1A1A1A]">{{ $producto->nombre }}</td>
+                        <td class="p-4">
+                            <div class="font-bold text-[#1A1A1A]">{{ $producto->nombre }}</div>
+                            <div class="text-[10px] text-gray-400 uppercase italic">📍 {{ $producto->ubicacion ?? 'Sin ubicación' }}</div>
+                        </td>
+                        <td class="p-4">
+                            <span class="text-sm text-gray-600 bg-gray-100 px-2 py-1 rounded-md">
+                                {{ $producto->categoria ?? 'General' }}
+                            </span>
+                        </td>
                         <td class="p-4 text-center">
                             @if($producto->inventario <= 5)
-                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">⚠️ {{ $producto->inventario }} unidades</span>
+                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">⚠️ {{ $producto->inventario }}</span>
                             @else
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">{{ $producto->inventario }} unidades</span>
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">{{ $producto->inventario }}</span>
                             @endif
                         </td>
-                        <td class="p-4 text-right text-gray-500 font-mono">${{ number_format($producto->precompra, 2) }}</td>
+                        <td class="p-4 text-right text-gray-500 font-mono text-sm">${{ number_format($producto->precompra, 2) }}</td>
                         <td class="p-4 text-right font-bold text-[#D4AF37] font-mono">${{ number_format($producto->preventa, 2) }}</td>
                         <td class="p-4 text-center space-x-2">
-                            <a href="{{ route('productos.edit', $producto->idproducto) }}" class="text-blue-600">✏️</a>
+                            <a href="{{ route('productos.edit', $producto->idproducto) }}" class="text-blue-600 hover:scale-125 transition-transform inline-block">✏️</a>
                             <form action="{{ route('productos.destroy', $producto->idproducto) }}" method="POST" class="inline" onsubmit="return confirm('¿Estás seguro de eliminar esta pieza?');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="text-red-600 hover:scale-110 transition-transform">
+                                <button type="submit" class="text-red-600 hover:scale-125 transition-transform">
                                     🗑️
                                 </button>
                             </form>

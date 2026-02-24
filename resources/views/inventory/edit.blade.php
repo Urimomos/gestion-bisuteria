@@ -1,34 +1,53 @@
 <x-layouts::master>
     <div class="p-6 lg:p-8 max-w-4xl mx-auto">
-        <h2 class="text-2xl font-bold text-[#1A1A1A] mb-8">Editar Producto: {{ $producto->nombre }}</h2>
+        <h2 class="text-2xl font-bold mb-6 text-[#1A1A1A]">Editar Pieza: {{ $producto->nombre }}</h2>
 
-        <form action="{{ route('productos.update', $producto->idproducto) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('productos.update', $producto->idproducto) }}" method="POST" class="bg-white p-8 rounded-3xl shadow-lg border border-[#D4AF37]/20">
             @csrf
-            @method('PUT') {{-- Requerido para actualizaciones en Laravel --}}
-            
-            <div class="bg-white p-8 rounded-3xl shadow-lg border border-[#D4AF37]/20">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="col-span-2">
-                        <label class="block text-sm font-bold mb-2 uppercase">Nombre de la Pieza</label>
-                        <input type="text" name="nombre" value="{{ $producto->nombre }}" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3">
-                    </div>
+            @method('PUT')
 
-                    <div>
-                        <label class="block text-sm font-bold mb-2 uppercase text-red-600">Stock Actual (Inventario)</label>
-                        <input type="number" name="inventario" value="{{ $producto->inventario }}" class="w-full bg-red-50 border-red-200 rounded-xl p-3 font-bold">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-bold mb-2 uppercase">Precio de Venta (Preventa)</label>
-                        <input type="number" step="0.01" name="preventa" value="{{ $producto->preventa }}" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3">
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {{-- Nombre --}}
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Nombre de la pieza</label>
+                    <input type="text" name="nombre" value="{{ $producto->nombre }}" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" required>
                 </div>
 
-                <div class="mt-8 flex justify-end space-x-4">
-                    <button type="submit" class="bg-[#1A1A1A] text-[#FDF2D0] px-10 py-3 rounded-full font-bold shadow-lg hover:scale-105 transition-all">
-                        ACTUALIZAR Y REGISTRAR CAMBIO
-                    </button>
+                {{-- NUEVO: Categoría --}}
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Categoría</label>
+                    <input type="text" name="categoria" value="{{ $producto->categoria }}" placeholder="Ej. Pulseras" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]">
                 </div>
+
+                {{-- NUEVO: Ubicación --}}
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Ubicación</label>
+                    <input type="text" name="ubicacion" value="{{ $producto->ubicacion }}" placeholder="Ej. Vitrina A" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]">
+                </div>
+
+                {{-- Stock --}}
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Stock Actual</label>
+                    <input type="number" name="inventario" value="{{ $producto->inventario }}" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" required>
+                </div>
+
+                {{-- Precio de Venta --}}
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Precio de Venta</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-3 text-gray-400">$</span>
+                        <input type="number" step="0.01" name="preventa" value="{{ $producto->preventa }}" class="w-full pl-8 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-4">
+                <button type="submit" class="flex-1 bg-[#D4AF37] text-white py-3 rounded-xl font-bold shadow-md hover:bg-[#B8962E] transition">
+                    GUARDAR CAMBIOS
+                </button>
+                <a href="{{ route('inventory.index') }}" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-600 font-bold hover:bg-gray-50 transition">
+                    CANCELAR
+                </a>
             </div>
         </form>
     </div>

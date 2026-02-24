@@ -26,6 +26,17 @@
                         <input type="text" name="nombre" value="{{ old('nombre') }}" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]" placeholder="Ej. Collar de Perlas con Dije Dorado">
                     </div>
 
+                    <div>
+                       <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Categoría</label>
+                       <input type="text" name="categoria" placeholder="Ej. Pulseras, Collares" 
+                              class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]">
+                   </div>
+                   <div>
+                       <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Ubicación en Tienda</label>
+                       <input type="text" name="ubicacion" placeholder="Ej. Vitrina Principal, Estante 2" 
+                              class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]">
+                   </div>
+
                     {{-- Precompra (Costo) --}}
                     <div>
                         <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Costo (Precompra)</label>
@@ -52,7 +63,7 @@
                 </div>
 
                 <div class="mt-8 flex justify-end space-x-4">
-                    <a href="{{ route('dashboard') }}" class="px-6 py-3 text-gray-500 font-bold hover:text-gray-700 transition-colors">CANCELAR</a>
+                    <a href="{{ route('inventory.index') }}" class="px-6 py-3 text-gray-500 font-bold hover:text-gray-700 transition-colors">CANCELAR</a>
                     <button type="submit" class="bg-[#D4AF37] text-white px-10 py-3 rounded-full font-bold shadow-lg hover:bg-[#B8962E] transition-all transform hover:scale-105">
                         GUARDAR PRODUCTO
                     </button>

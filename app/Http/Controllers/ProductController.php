@@ -12,16 +12,17 @@ class ProductController extends Controller
 {
     public function store(Request $request)
     {
-        // 1. Validamos los datos (Como un try-catch en Java)
+        // 1. Validamos los datos incluyendo los nuevos campos
         $request->validate([
             'nombre' => 'required|max:40',
+            'categoria' => 'nullable|string|max:50', // Nuevo
+            'ubicacion' => 'nullable|string|max:100', // Nuevo
             'precompra' => 'required|numeric',
             'preventa' => 'required|numeric',
             'inventario' => 'required|integer',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        // Iniciamos una transacción (O todo se guarda o nada, para evitar errores)
         DB::beginTransaction();
 
         try {
@@ -31,16 +32,18 @@ class ProductController extends Controller
                 $path = $request->file('imagen')->store('productos', 'public');
             }
 
-            // 3. Guardamos el producto
+            // 3. Guardamos el producto con los nuevos campos
             $producto = Producto::create([
                 'nombre' => $request->nombre,
+                'categoria' => $request->categoria, // Nuevo
+                'ubicacion' => $request->ubicacion, // Nuevo
                 'precompra' => $request->precompra,
                 'preventa' => $request->preventa,
                 'inventario' => $request->inventario,
                 'imagen' => $path,
             ]);
 
-            // 4. Registramos en la tabla 'edita' (Historial)
+            // 4. Registramos en el historial
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
@@ -52,7 +55,7 @@ class ProductController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('dashboard')->with('success', '¡Producto registrado con éxito!');
+            return redirect()->route('inventory.index')->with('success', '¡Producto registrado con éxito!');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -62,9 +65,7 @@ class ProductController extends Controller
 
     public function index()
     {
-    // Obtenemos todos los productos ordenados por el más reciente
         $productos = Producto::orderBy('idproducto', 'desc')->get();
-    
         return view('inventory.index', compact('productos'));
     }
 
@@ -76,31 +77,37 @@ class ProductController extends Controller
 
     public function update(Request $request, $idproducto)
     {
-        // 1. Buscamos el producto
         $producto = Producto::findOrFail($idproducto);
         $cantidadAnterior = $producto->inventario;
 
-        // 2. Quitamos el dd() y usamos este bloque
+        $request->validate([
+            'nombre' => 'required|max:40',
+            'categoria' => 'nullable|string|max:50',
+            'ubicacion' => 'nullable|string|max:100',
+            'preventa' => 'required|numeric',
+            'inventario' => 'required|integer',
+        ]);
+
         DB::beginTransaction();
         try {
-            // Actualizamos los campos (asegúrate de que existan en el $fillable del Modelo)
+            // Actualización de campos existentes y nuevos
             $producto->nombre = $request->nombre;
+            $producto->categoria = $request->categoria; // Nuevo
+            $producto->ubicacion = $request->ubicacion; // Nuevo
             $producto->preventa = $request->preventa;
             $producto->inventario = $request->inventario;
-            // Si no envías precompra, asegúrate de que no sea obligatorio o mantenlo igual:
-            // $producto->precompra = $request->precompra ?? $producto->precompra;
-
+            
+            // Opcional: Manejo de nueva imagen en actualización si lo deseas añadir después
             $producto->save();
 
-            // 3. Registro en la tabla 'edita' según el diagrama del cliente
+            // Registro en historial
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
                 'accion' => 'Actualizo',
-                // Quitamos 'fecha' porque la base de datos no la tiene
                 'cantidad_anterior' => $cantidadAnterior,
                 'cantidad_nueva' => $request->inventario,
-                'created_at' => now(), // Laravel usará esto como la fecha del movimiento
+                'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
@@ -109,8 +116,7 @@ class ProductController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            // Esto te dirá exactamente QUÉ falló si algo sale mal
-            return "Error detallado: " . $e->getMessage(); 
+            return back()->with('error', 'Error detallado: ' . $e->getMessage()); 
         }
     }
 
@@ -120,7 +126,6 @@ class ProductController extends Controller
 
         DB::beginTransaction();
         try {
-            // Registramos el movimiento ANTES de borrar el producto
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
@@ -134,11 +139,10 @@ class ProductController extends Controller
             $producto->delete();
 
             DB::commit();
-            return redirect()->route('inventory.index')->with('success', 'Producto eliminado y movimiento registrado.');
+            return redirect()->route('inventory.index')->with('success', 'Producto eliminado.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return "Error: " . $e->getMessage();
+            return back()->with('error', "Error: " . $e->getMessage());
         }
     }
-
-}
+}   

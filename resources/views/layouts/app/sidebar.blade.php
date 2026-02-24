@@ -9,7 +9,7 @@
         <flux:navlist.item icon="archive-box" href="{{ route('inventory.index') }}">Inventario</flux:navlist.item>
         <flux:navlist.item icon="clock" href="{{ route('reportes.index') }}" wire:navigate>Historial de Cambios</flux:navlist.item>
         <flux:navlist.item icon="currency-dollar" href="{{ route('ventas.buscar') }}">Ventas</flux:navlist.item>
-        
+        <flux:navlist.item icon="users" href="{{ route('clientes.index') }}">Clientes</flux:navlist.item>
         @if(auth()->user()->rol === 'maestro')
             <div class="mt-4 px-4">
                 <p class="text-xs font-bold text-gray-400 uppercase mb-2">Administración</p>

@@ -43,18 +43,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Módulo de Ventas y Clientes
+    // --- Módulo de Ventas (Solo el proceso de cobrar) ---
     Route::prefix('ventas')->group(function () {
-        // Al estar dentro del prefijo 'ventas', la URL será: /ventas/buscar
         Route::get('/buscar', [VentaController::class, 'seleccionarCliente'])->name('ventas.buscar');
-        
-        // La URL será: /ventas/nueva/{idcliente}
         Route::get('/nueva/{idcliente}', [VentaController::class, 'create'])->name('ventas.create');
         Route::post('/guardar', [VentaController::class, 'store'])->name('ventas.store');
-
-        // Rutas de Clientes (dentro de ventas)
+        
+        // Dejamos solo el registro rápido aquí porque se usa DURANTE la venta
         Route::post('/clientes/rapido', [ClienteController::class, 'registrarRapido'])->name('clientes.registrarRapido');
-        Route::put('/clientes/{id}', [ClienteController::class, 'update'])->name('clientes.update');
-        Route::delete('/clientes/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
+    });
+    
+    // --- NUEVO: Módulo Independiente de Clientes (CRUD completo) ---
+    Route::prefix('clientes')->group(function () {
+        Route::get('/', [ClienteController::class, 'index'])->name('clientes.index'); // Lista de todos
+        Route::get('/nuevo', [ClienteController::class, 'create'])->name('clientes.create'); // Formulario
+        Route::post('/guardar', [ClienteController::class, 'store'])->name('clientes.store'); // Guardar
+        Route::get('/{id}/editar', [ClienteController::class, 'edit'])->name('clientes.edit'); // Vista editar
+        Route::put('/{id}', [ClienteController::class, 'update'])->name('clientes.update'); // Actualizar
+        Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy'); // Borrar
     });
 
     // Acciones de Productos

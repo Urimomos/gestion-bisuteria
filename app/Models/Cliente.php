@@ -18,7 +18,9 @@ class Cliente extends Model
     // Campos que permitiremos llenar masivamente
     protected $fillable = [
         'nombre',
+        'AP', 
+        'AM',
         'telefono',
-        'direccion'
+        'email'
     ];  
 }

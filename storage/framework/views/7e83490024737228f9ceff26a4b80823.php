@@ -1,0 +1,1 @@
+<img src="<?php echo e(asset('images/Logo_Bisuteria.png')); ?>" <?php echo e($attributes->merge(['class' => 'h-full w-auto'])); ?> alt="Logo"><?php /**PATH D:\laragon\www\gestion-bisuteria\resources\views/components/app-logo-icon.blade.php ENDPATH**/ ?>
