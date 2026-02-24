@@ -49,9 +49,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/buscar', [VentaController::class, 'seleccionarCliente'])->name('ventas.buscar');
         Route::get('/nueva/{idcliente}', [VentaController::class, 'create'])->name('ventas.create');
         Route::post('/guardar', [VentaController::class, 'store'])->name('ventas.store');
-        
-        // Dejamos solo el registro rápido aquí porque se usa DURANTE la venta
-        Route::post('/clientes/rapido', [ClienteController::class, 'registrarRapido'])->name('clientes.registrarRapido');
+        Route::post('/agregar', [VentaController::class, 'agregarAlCarrito'])->name('ventas.agregar');
+        Route::get('/quitar/{indice}', [VentaController::class, 'quitarDelCarrito'])->name('ventas.quitar');
     });
     
     // --- NUEVO: Módulo Independiente de Clientes (CRUD completo) ---
@@ -68,7 +67,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reportes-ventas', [VentaReporteController::class, 'index'])
         ->name('reportes.ventas')
         ->middleware('auth');
-
+    Route::get('/ticket/{fecha}/{idcliente}/{momento}', [VentaReporteController::class, 'generarTicket'])
+    ->name('ticket.generar');
     // Acciones de Productos
     Route::post('/productos/guardar', [ProductController::class, 'store'])->name('productos.store');
     Route::put('/productos/{idproducto}', [ProductController::class, 'update'])->name('productos.update');

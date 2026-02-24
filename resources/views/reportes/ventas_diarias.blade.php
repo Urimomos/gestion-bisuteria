@@ -36,6 +36,7 @@
                         <th class="p-4 text-center">Cant.</th>
                         <th class="p-4">Pago</th>
                         <th class="p-4 text-right">Subtotal</th>
+                        <th class="p-4 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
@@ -51,6 +52,18 @@
                             </span>
                         </td>
                         <td class="p-4 text-right font-bold font-mono text-[#D4AF37]">${{ number_format($v->subtotal, 2) }}</td>
+
+                        <td class="p-4 text-center">
+                            <a href="{{ route('ticket.generar', ['fecha' => $v->Fecha, 'idcliente' => $v->idcliente, 'momento' => $v->created_at]) }}"    
+                               target="_blank" 
+                               title="Imprimir Ticket"
+                               class="inline-flex items-center justify-center p-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-[#D4AF37] hover:text-white transition-all shadow-sm">
+                               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                               </svg>
+                            </a>
+                        </td>
+
                     </tr>
                     @empty
                     <tr>
