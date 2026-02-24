@@ -32,7 +32,7 @@
                     @csrf
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Nombre Completo</label>
-                        <input type="text" name="name" required class="w-full bg-white/10 border-white/20 rounded-xl p-3 text-white focus:ring-[#D4AF37]">
+                        <input type="text" name="name" required oninput="this.value = this.value.replace(/[0-9]/g, '')" class="w-full bg-white/10 border-white/20 rounded-xl p-3 text-white focus:ring-[#D4AF37]">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Correo Electrónico</label>

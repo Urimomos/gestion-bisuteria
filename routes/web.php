@@ -8,6 +8,7 @@ use App\Http\Controllers\VentaController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\VentaReporteController;
 
 // 1. Redirección inicial
 Route::get('/', function () {
@@ -62,6 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/{id}', [ClienteController::class, 'update'])->name('clientes.update'); // Actualizar
         Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy'); // Borrar
     });
+
+    // Reportes de Dinero y Ventas (Solo Maestro)
+    Route::get('/reportes-ventas', [VentaReporteController::class, 'index'])
+        ->name('reportes.ventas')
+        ->middleware('auth');
 
     // Acciones de Productos
     Route::post('/productos/guardar', [ProductController::class, 'store'])->name('productos.store');

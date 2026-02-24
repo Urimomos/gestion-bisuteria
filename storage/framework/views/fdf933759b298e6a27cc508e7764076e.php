@@ -1,12 +1,23 @@
-<x-layouts::master>
+<?php if (isset($component)) { $__componentOriginal1a7ecdc5bab41c522bd30c83b1a73cf0 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1a7ecdc5bab41c522bd30c83b1a73cf0 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'f4ac99e09542ff494432bc959d4fee61::master','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('layouts::master'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
     <div class="p-6 lg:p-8 max-w-2xl mx-auto">
         <div class="mb-8">
             <h2 class="text-2xl font-bold text-[#1A1A1A]">Nuevo Registro de Cliente</h2>
             <p class="text-gray-600">Completa los datos para dar de alta en el sistema.</p>
         </div>
 
-        <form action="{{ route('clientes.store') }}" method="POST" class="bg-white p-8 rounded-3xl shadow-xl border border-[#D4AF37]/20">
-            @csrf
+        <form action="<?php echo e(route('clientes.store')); ?>" method="POST" class="bg-white p-8 rounded-3xl shadow-xl border border-[#D4AF37]/20">
+            <?php echo csrf_field(); ?>
             <div class="space-y-6">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Nombre(s) *</label>
@@ -40,10 +51,19 @@
                 <button type="submit" class="flex-1 bg-[#1A1A1A] text-[#FDF2D0] py-4 rounded-xl font-bold shadow-lg hover:bg-black transition-all">
                     REGISTRAR CLIENTE
                 </button>
-                <a href="{{ route('clientes.index') }}" class="px-8 py-4 bg-gray-100 text-gray-500 rounded-xl font-bold hover:bg-gray-200 transition-all text-center">
+                <a href="<?php echo e(route('clientes.index')); ?>" class="px-8 py-4 bg-gray-100 text-gray-500 rounded-xl font-bold hover:bg-gray-200 transition-all text-center">
                     CANCELAR
                 </a>
             </div>
         </form>
     </div>
-</x-layouts::master>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1a7ecdc5bab41c522bd30c83b1a73cf0)): ?>
+<?php $attributes = $__attributesOriginal1a7ecdc5bab41c522bd30c83b1a73cf0; ?>
+<?php unset($__attributesOriginal1a7ecdc5bab41c522bd30c83b1a73cf0); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1a7ecdc5bab41c522bd30c83b1a73cf0)): ?>
+<?php $component = $__componentOriginal1a7ecdc5bab41c522bd30c83b1a73cf0; ?>
+<?php unset($__componentOriginal1a7ecdc5bab41c522bd30c83b1a73cf0); ?>
+<?php endif; ?><?php /**PATH C:\laragon\www\gestion-bisuteria\resources\views/clientes/create.blade.php ENDPATH**/ ?>

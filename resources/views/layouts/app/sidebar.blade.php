@@ -13,9 +13,9 @@
         @if(auth()->user()->rol === 'maestro')
             <div class="mt-4 px-4">
                 <p class="text-xs font-bold text-gray-400 uppercase mb-2">Administración</p>
-                <flux:navlist.item icon="users" href="{{ route('usuarios.index') }}" wire:navigate>
-                    Gestión de Empleados
-                </flux:navlist.item>
+                <flux:navlist.item icon="user-circle" href="{{ route('usuarios.index') }}">Empleados</flux:navlist.item>
+                <flux:navlist.item icon="chart-bar" href="{{ route('reportes.ventas') }}">
+                Reporte de Ventas</flux:navlist.item>
             </div>
         @endif
     </flux:navlist>

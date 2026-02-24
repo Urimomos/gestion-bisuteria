@@ -23,12 +23,12 @@
                     {{-- Nombre --}}
                     <div class="col-span-2">
                         <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Nombre de la Pieza</label>
-                        <input type="text" name="nombre" value="{{ old('nombre') }}" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]" placeholder="Ej. Collar de Perlas con Dije Dorado">
+                        <input type="text" name="nombre" value="{{ old('nombre') }}" oninput="this.value = this.value.replace(/[0-9]/g, '')" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]" placeholder="Ej. Collar de Perlas con Dije Dorado">
                     </div>
 
                     <div>
                        <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Categoría</label>
-                       <input type="text" name="categoria" placeholder="Ej. Pulseras, Collares" 
+                       <input type="text" name="categoria" placeholder="Ej. Pulseras, Collares" oninput="this.value = this.value.replace(/[0-9]/g, '')"
                               class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37] focus:border-[#D4AF37]">
                    </div>
                    <div>
