@@ -21,17 +21,18 @@
             <div class="space-y-6">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Nombre(s) *</label>
-                    <input type="text" name="nombre" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" placeholder="Ej. Ana María" required>
+                    <input type="text" name="nombre" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" placeholder="Ej. Ana María" 
+                    oninput="this.value = this.value.replace(/[0-9]/g, '')" required>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Apellido Paterno</label>
-                        <input type="text" name="AP" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" placeholder="Ej. García">
+                        <input type="text" name="AP" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" oninput="this.value = this.value.replace(/[0-9]/g, '')" placeholder="Ej. García">
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Apellido Materno</label>
-                        <input type="text" name="AM" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" placeholder="Ej. López">
+                        <input type="text" name="AM" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" oninput="this.value = this.value.replace(/[0-9]/g, '')" placeholder="Ej. López">
                     </div>
                 </div>
 
