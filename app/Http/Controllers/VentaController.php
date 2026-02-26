@@ -72,6 +72,7 @@ class VentaController extends Controller
 
         DB::beginTransaction();
         try {
+            $ahora = now();
             foreach ($carrito as $item) {
                 // 1. Verificar stock final por seguridad
                 $producto = Producto::lockForUpdate()->find($item['idproducto']);
@@ -86,8 +87,8 @@ class VentaController extends Controller
                     'idproducto' => $item['idproducto'],
                     'idcliente' => $request->idcliente,
                     'Cantidad' => $item['cantidad'],
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'created_at' => $ahora, 
+                    'updated_at' => $ahora,
                 ]);
 
                 // 3. Descontar del inventario
@@ -97,7 +98,16 @@ class VentaController extends Controller
             DB::commit();
             session()->forget('carrito'); // Limpiar la lista después del éxito
 
-            return redirect()->route('ventas.buscar')->with('success', 'Venta realizada con éxito.');
+            $momento = now()->format('Y-m-d H:i:s');
+
+            return redirect()->route('ventas.buscar')->with([
+                'success' => 'Venta completada con éxito.',
+                'imprimir_ticket' => route('ticket.generar', [
+                    'fecha' => now()->format('Y-m-d'),
+                    'idcliente' => $request->idcliente,
+                    'momento' => $momento
+                ])
+            ]);
             
         } catch (\Exception $e) {
             DB::rollBack();
@@ -108,9 +118,12 @@ class VentaController extends Controller
     public function seleccionarCliente(Request $request)
     {
         $query = $request->get('search');
-        $clientes = Cliente::where('nombre', 'LIKE', "%{$query}%")
-            ->orWhere('AP', 'LIKE', "%{$query}%")
-            ->get();
+        $clientes = Cliente::where('idcliente', '!=', 1)
+        ->where(function($q) use ($query) {
+            $q->where('nombre', 'LIKE', "%{$query}%")
+              ->orWhere('AP', 'LIKE', "%{$query}%");
+        })
+        ->get();
 
         return view('ventas.buscar_cliente', compact('clientes'));
     }

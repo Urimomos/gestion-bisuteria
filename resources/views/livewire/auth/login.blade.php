@@ -85,12 +85,6 @@
                     required
                     viewable
                 />
-
-                @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-xs end-0 font-bold" :href="route('password.request')" wire:navigate>
-                        {{ __('¿Olvidaste tu contraseña?') }}
-                    </flux:link>
-                @endif
             </div>
 
             <flux:checkbox name="remember" :label="__('Recordarme')" :checked="old('remember')" />

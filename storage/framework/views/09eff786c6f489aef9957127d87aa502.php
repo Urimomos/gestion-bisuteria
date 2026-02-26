@@ -27,6 +27,23 @@
                 <a href="<?php echo e(route('clientes.create')); ?>" class="text-xs font-bold text-[#D4AF37] hover:underline">+ REGISTRAR NUEVO</a>
             </div>
             
+
+            <div class="mb-6">
+                <a href="<?php echo e(route('ventas.create', ['idcliente' => 1])); ?>" 
+                   class="flex items-center justify-center gap-2 w-full bg-[#D4AF37] text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-[#B8962E] transition-all tracking-widest uppercase">
+                    <span> VENTA RÁPIDA (PÚBLICO GENERAL)</span>
+                </a>
+            </div>
+
+            
+            <div class="relative flex py-5 items-center">
+                <div class="flex-grow border-t border-gray-200"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-xs uppercase font-bold">O buscar cliente registrado</span>
+                <div class="flex-grow border-t border-gray-200"></div>
+            </div>
+
+
+
             <form action="<?php echo e(route('ventas.buscar')); ?>" method="GET" class="mb-8">
                 <div class="flex gap-2">
                     <input type="text" name="search" value="<?php echo e(request('search')); ?>" 
@@ -60,6 +77,20 @@
             </div>
         </div>
     </div>
+
+    
+<?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if(session('imprimir_ticket')): ?>
+    <script>
+        // Abrimos el ticket en una pestaña nueva
+        const urlTicket = "<?php echo e(session('imprimir_ticket')); ?>";
+        const nuevaVentana = window.open(urlTicket, '_blank');
+        
+        // Si el navegador bloquea la ventana emergente, avisamos al usuario
+        if(!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed=='undefined') { 
+            alert('El ticket se bloqueó. Por favor, permite las ventanas emergentes para imprimir automáticamente.');
+        }
+    </script>
+<?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1a7ecdc5bab41c522bd30c83b1a73cf0)): ?>

@@ -15,6 +15,23 @@
                 <a href="{{ route('clientes.create') }}" class="text-xs font-bold text-[#D4AF37] hover:underline">+ REGISTRAR NUEVO</a>
             </div>
             
+
+            <div class="mb-6">
+                <a href="{{ route('ventas.create', ['idcliente' => 1]) }}" 
+                   class="flex items-center justify-center gap-2 w-full bg-[#D4AF37] text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-[#B8962E] transition-all tracking-widest uppercase">
+                    <span> VENTA RÁPIDA (PÚBLICO GENERAL)</span>
+                </a>
+            </div>
+
+            {{-- Línea divisoria para separar del buscador --}}
+            <div class="relative flex py-5 items-center">
+                <div class="flex-grow border-t border-gray-200"></div>
+                <span class="flex-shrink mx-4 text-gray-400 text-xs uppercase font-bold">O buscar cliente registrado</span>
+                <div class="flex-grow border-t border-gray-200"></div>
+            </div>
+
+
+
             <form action="{{ route('ventas.buscar') }}" method="GET" class="mb-8">
                 <div class="flex gap-2">
                     <input type="text" name="search" value="{{ request('search') }}" 
@@ -48,4 +65,18 @@
             </div>
         </div>
     </div>
+
+    {{-- Script para apertura automática del ticket --}}
+@if(session('imprimir_ticket'))
+    <script>
+        // Abrimos el ticket en una pestaña nueva
+        const urlTicket = "{{ session('imprimir_ticket') }}";
+        const nuevaVentana = window.open(urlTicket, '_blank');
+        
+        // Si el navegador bloquea la ventana emergente, avisamos al usuario
+        if(!nuevaVentana || nuevaVentana.closed || typeof nuevaVentana.closed=='undefined') { 
+            alert('El ticket se bloqueó. Por favor, permite las ventanas emergentes para imprimir automáticamente.');
+        }
+    </script>
+@endif
 </x-layouts::master>

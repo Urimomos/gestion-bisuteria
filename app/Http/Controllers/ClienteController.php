@@ -12,13 +12,13 @@ class ClienteController extends Controller
     {
         $search = $request->get('search');
         
-        $clientes = Cliente::when($search, function ($query) use ($search) {
-                return $query->where('nombre', 'LIKE', "%{$search}%")
-                             ->orWhere('AP', 'LIKE', "%{$search}%")
-                             ->orWhere('AM', 'LIKE', "%{$search}%");
-            })
-            ->orderBy('idcliente', 'desc')
-            ->get();
+       $clientes = Cliente::where('idcliente', '!=', 1)
+        ->when($search, function ($query) use ($search) {
+            return $query->where('nombre', 'LIKE', "%{$search}%")
+                         ->orWhere('AP', 'LIKE', "%{$search}%");
+        })
+        ->orderBy('idcliente', 'desc')
+        ->get();
 
         return view('clientes.index', compact('clientes'));
     }

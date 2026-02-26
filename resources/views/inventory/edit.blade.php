@@ -28,7 +28,13 @@
                 {{-- Stock --}}
                 <div>
                     <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Stock Actual</label>
-                    <input type="number" name="inventario" value="{{ $producto->inventario }}" class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" required>
+                    <input type="number" 
+                    min="0"
+                    oninput="if(this.value < 0) this.value = 0;"
+                    name="inventario" 
+                    value="{{ $producto->inventario }}" 
+                    class="w-full border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" 
+                    required>
                 </div>
 
                 {{-- Precio de Venta --}}
@@ -36,7 +42,14 @@
                     <label class="block text-sm font-bold text-gray-700 uppercase mb-2">Precio de Venta</label>
                     <div class="relative">
                         <span class="absolute left-3 top-3 text-gray-400">$</span>
-                        <input type="number" step="0.01" name="preventa" value="{{ $producto->preventa }}" class="w-full pl-8 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" required>
+                        <input type="number" 
+                        min="0"
+                        oninput="if(this.value < 0) this.value = 0;"
+                        step="0.01" 
+                        name="preventa" 
+                        value="{{ $producto->preventa }}" 
+                        class="w-full pl-8 border-[#D4AF37]/30 rounded-xl p-3 focus:ring-[#D4AF37]" 
+                        required>
                     </div>
                 </div>
             </div>

@@ -51,19 +51,39 @@
                     
                     <div>
                         <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Costo (Precompra)</label>
-                        <input type="number" step="0.01" name="precompra" value="<?php echo e(old('precompra')); ?>" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" placeholder="0.00">
+                        <input type="number"
+                        min="0" 
+                        step="0.01" 
+                        name="precompra" 
+                        oninput="if(this.value < 0) this.value = 0;"
+                        value="<?php echo e(old('precompra')); ?>" 
+                        class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" 
+                        placeholder="0.00">
                     </div>
 
                     
                     <div>
                         <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Precio (Preventa)</label>
-                        <input type="number" step="0.01" name="preventa" value="<?php echo e(old('preventa')); ?>" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" placeholder="0.00">
+                        <input type="number" 
+                        min="0"
+                        oninput="if(this.value < 0) this.value = 0;"
+                        step="0.01" 
+                        name="preventa" 
+                        value="<?php echo e(old('preventa')); ?>" 
+                        class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" 
+                        placeholder="0.00">
                     </div>
 
                     
                     <div>
                         <label class="block text-sm font-bold mb-2 uppercase tracking-wide">Stock Inicial (Inventario)</label>
-                        <input type="number" name="inventario" value="<?php echo e(old('inventario')); ?>" class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" placeholder="0">
+                        <input type="number" 
+                        min="0"
+                        oninput="if(this.value < 0) this.value = 0;"
+                        name="inventario" 
+                        value="<?php echo e(old('inventario')); ?>" 
+                        class="w-full bg-[#FDF2D0]/30 border-[#D4AF37]/30 rounded-xl p-3" 
+                        placeholder="0">
                     </div>
 
                     
