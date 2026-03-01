@@ -76,49 +76,60 @@ class ProductController extends Controller
     }
 
     public function update(Request $request, $idproducto)
-    {
-        $producto = Producto::findOrFail($idproducto);
-        $cantidadAnterior = $producto->inventario;
+{
+    $producto = Producto::findOrFail($idproducto);
+    $cantidadAnterior = $producto->inventario;
 
-        $request->validate([
-            'nombre' => 'required|max:40',
-            'categoria' => 'nullable|string|max:50',
-            'ubicacion' => 'nullable|string|max:100',
-            'preventa' => 'required|numeric',
-            'inventario' => 'required|integer',
+    // 1. Agregamos la validación de la imagen
+    $request->validate([
+        'nombre' => 'required|max:40',
+        'categoria' => 'nullable|string|max:50',
+        'ubicacion' => 'nullable|string|max:100',
+        'preventa' => 'required|numeric|min:0',
+        'inventario' => 'required|integer|min:0',
+        'imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Validación de imagen
+    ]);
+
+    DB::beginTransaction();
+    try {
+        // 2. Manejo de la nueva imagen
+        if ($request->hasFile('imagen')) {
+            // Borrar la imagen anterior si existe para ahorrar espacio
+            if ($producto->imagen) {
+                Storage::disk('public')->delete($producto->imagen);
+            }
+            // Guardar la nueva y actualizar el path
+            $producto->imagen = $request->file('imagen')->store('productos', 'public');
+        }
+
+        // 3. Actualización de campos
+        $producto->nombre = $request->nombre;
+        $producto->categoria = $request->categoria;
+        $producto->ubicacion = $request->ubicacion;
+        $producto->preventa = $request->preventa;
+        $producto->inventario = $request->inventario;
+        
+        $producto->save();
+
+        // 4. Registro en historial
+        DB::table('edita')->insert([
+            'idusuario' => Auth::id(),
+            'idproducto' => $producto->idproducto,
+            'accion' => 'Actualizo',
+            'cantidad_anterior' => $cantidadAnterior,
+            'cantidad_nueva' => $request->inventario,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
-        DB::beginTransaction();
-        try {
-            // Actualización de campos existentes y nuevos
-            $producto->nombre = $request->nombre;
-            $producto->categoria = $request->categoria; // Nuevo
-            $producto->ubicacion = $request->ubicacion; // Nuevo
-            $producto->preventa = $request->preventa;
-            $producto->inventario = $request->inventario;
-            
-            // Opcional: Manejo de nueva imagen en actualización si lo deseas añadir después
-            $producto->save();
+        DB::commit();
+        return redirect()->route('inventory.index')->with('success', '¡Inventario actualizado con éxito!');
 
-            // Registro en historial
-            DB::table('edita')->insert([
-                'idusuario' => Auth::id(),
-                'idproducto' => $producto->idproducto,
-                'accion' => 'Actualizo',
-                'cantidad_anterior' => $cantidadAnterior,
-                'cantidad_nueva' => $request->inventario,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
-            DB::commit();
-            return redirect()->route('inventory.index')->with('success', '¡Inventario actualizado!');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return back()->with('error', 'Error detallado: ' . $e->getMessage()); 
-        }
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->with('error', 'Error al actualizar: ' . $e->getMessage()); 
     }
+}
 
     public function destroy($idproducto)
     {
