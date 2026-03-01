@@ -13,7 +13,7 @@
     <div class="p-4 md:p-8 max-w-6xl mx-auto">
         
         <div class="mb-8 text-center md:text-left">
-            <h2 class="text-2xl font-black text-[#1A1A1A] uppercase tracking-tighter italic">💰 Reporte Financiero</h2>
+            <h2 class="text-2xl font-black text-[#1A1A1A] uppercase tracking-tighter italic">💰 Reporte de Ventas</h2>
             <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">
                 Corte de caja: <?php echo e(date('d/m/Y')); ?>
 
@@ -31,7 +31,6 @@
 
                     </h3>
                 </div>
-                <span class="absolute -right-4 -bottom-4 text-white/5 text-8xl font-black italic select-none">$$</span>
             </div>
 
             

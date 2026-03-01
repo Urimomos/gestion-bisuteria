@@ -1,3 +1,5 @@
+
+
 <?php $iconTrailing ??= $attributes->pluck('icon:trailing'); ?>
 <?php $iconLeading ??= $attributes->pluck('icon:leading'); ?>
 <?php $iconVariant ??= $attributes->pluck('icon:variant'); ?>
@@ -93,8 +95,6 @@ if ($loading !== false) {
         $loading = (bool) $loading;
     }
 }
-
-$invalid ??= ($name && $errors->has($name));
 
 $iconLeading ??= $icon;
 
@@ -264,10 +264,14 @@ $classes = Flux::classes()
                 
                 <?php echo e($attributes->except('class')->class($type === 'file' ? '' : $classes)); ?>
 
-                <?php if(isset($name)): ?> name="<?php echo e($name); ?>" <?php endif; ?>
-                <?php if($maskDynamic): ?> x-mask:dynamic="<?php echo e($maskDynamic); ?>" <?php elseif($mask): ?> x-mask="<?php echo e($mask); ?>" <?php endif; ?>
-                <?php if($invalid): ?> aria-invalid="true" data-invalid <?php endif; ?>
-                <?php if(is_numeric($size)): ?> size="<?php echo e($size); ?>" <?php endif; ?>
+                <?php if (isset($name)): ?> name="<?php echo e($name); ?>" <?php endif; ?>
+                <?php if ($maskDynamic): ?> x-mask:dynamic="<?php echo e($maskDynamic); ?>" <?php elseif($mask): ?> x-mask="<?php echo e($mask); ?>" <?php endif; ?>
+                <?php if (is_numeric($size)): ?> size="<?php echo e($size); ?>" <?php endif; ?>
+                <?php $__getScope = fn($scope = []) => $scope; ?><?php if (isset($scope)) $__scope = $scope; ?><?php $scope = $__getScope(scope: ['name' => $name ?? null]); ?>
+                <?php if ($scope['name'] && $errors->has($scope['name'])): ?>
+                aria-invalid="true" data-invalid
+                <?php endif; ?>
+                <?php if (isset($__scope)) { $scope = $__scope; unset($__scope); } ?>
                 data-flux-control
                 data-flux-group-target
                 <?php if($loading): ?> wire:loading.class="<?php echo e($inputLoadingClasses); ?>" <?php endif; ?>
