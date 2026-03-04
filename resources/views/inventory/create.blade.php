@@ -27,7 +27,6 @@
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Nombre de la Pieza</label>
                         <input type="text" name="nombre" value="{{ old('nombre') }}" 
-                               oninput="this.value = this.value.replace(/[0-9]/g, '')" 
                                class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 focus:ring-[#D4AF37] focus:border-[#D4AF37] text-sm" 
                                placeholder="Ej. Collar de Perlas con Dije">
                     </div>
@@ -36,7 +35,6 @@
                     <div>
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Categoría</label>
                         <input type="text" name="categoria" placeholder="Ej. Pulseras" 
-                               oninput="this.value = this.value.replace(/[0-9]/g, '')"
                                class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]">
                     </div>
 
