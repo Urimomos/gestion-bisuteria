@@ -30,7 +30,7 @@
                     <tr class="hover:bg-[#FDF2D0]/10 transition-colors">
                         <td class="p-4">
                             @if($producto->imagen)
-                                <img src="{{ asset('storage/' . $producto->imagen) }}" class="size-12 rounded-lg object-cover border border-gray-200">
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" class="size-20 rounded-lg object-cover border border-gray-200">
                             @else
                                 <div class="size-12 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400 text-xs">🖼️</div>
                             @endif
