@@ -22,4 +22,3 @@ yarn-error.log
 /.zed
 storage/framework/views/*.php
 storage/logs/*.log
-
