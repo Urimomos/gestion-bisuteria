@@ -11,6 +11,17 @@
             </a>
         </div>
 
+        <div class="mb-6">
+            <form action="{{ route('inventory.index') }}" method="GET" class="flex gap-2 max-w-md">
+                <input type="text" name="search" value="{{ request('search') }}" 
+                       placeholder="Buscar por nombre o categoría..." 
+                       class="flex-1 bg-white border-[#D4AF37]/30 rounded-2xl p-3 text-sm focus:ring-[#D4AF37]">
+                <button type="submit" class="bg-[#1A1A1A] text-[#FDF2D0] px-6 rounded-2xl font-bold hover:bg-black transition text-xs">
+                    BUSCAR
+                </button>
+            </form>
+        </div>
+
         {{-- VISTA PARA ESCRITORIO (Se oculta en móvil) --}}
         <div class="hidden md:block bg-white rounded-3xl shadow-xl border border-[#D4AF37]/20 overflow-hidden">
             <table class="w-full text-left border-collapse">
@@ -106,6 +117,17 @@
         @if($productos->isEmpty())
             <div class="p-12 text-center text-gray-400 bg-white rounded-3xl border border-dashed border-gray-200 mt-4">
                 <p class="text-sm italic font-medium uppercase tracking-widest">No hay piezas en el catálogo</p>
+            </div>
+        @endif
+    </div>
+
+    <div class="mt-8">
+            {{ $productos->links() }}
+        </div>
+
+        @if($productos->isEmpty())
+            <div class="p-12 text-center text-gray-400 bg-white rounded-3xl border border-dashed border-gray-200 mt-4">
+                <p class="text-sm italic font-medium uppercase tracking-widest">No se encontraron piezas</p>
             </div>
         @endif
     </div>

@@ -30,8 +30,8 @@
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Nombre de la pieza</label>
                         <input type="text" name="nombre" 
-                        oninput="this.value = this.value.replace(/[0-9]/g, '')"
-                        value="{{ $producto->nombre }}" 
+                               oninput="this.value = this.value.replace(/[0-9]/g, '')"
+                               value="{{ $producto->nombre }}" 
                                class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]" required>
                     </div>
 
@@ -39,8 +39,8 @@
                     <div>
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Categoría</label>
                         <input type="text" name="categoria" 
-                        oninput="this.value = this.value.replace(/[0-9]/g, '')"
-                        value="{{ $producto->categoria }} " 
+                               oninput="this.value = this.value.replace(/[0-9]/g, '')"
+                               value="{{ $producto->categoria }}" 
                                placeholder="Ej. Pulseras" class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]">
                     </div>
 
@@ -59,6 +59,17 @@
                                class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]" required>
                     </div>
 
+                    {{-- NUEVO: Costo de Precompra --}}
+                    <div>
+                        <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Costo (Precompra)</label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-4 text-gray-400 font-bold">$</span>
+                            <input type="number" min="0" oninput="if(this.value < 0) this.value = 0;" step="0.01" 
+                                   name="precompra" value="{{ $producto->precompra }}" 
+                                   class="w-full pl-8 bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]" required>
+                        </div>
+                    </div>
+
                     {{-- Precio de Venta --}}
                     <div>
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Precio de Venta</label>
@@ -74,7 +85,7 @@
                 {{-- Botones --}}
                 <div class="mt-10 flex flex-col-reverse md:flex-row gap-4">
                     <a href="{{ route('inventory.index') }}" 
-                       class="w-full md:flex-1 px-6 py-4 border border-gray-200 rounded-2xl text-gray-500 font-bold hover:bg-gray-50 transition text-center text-sm">
+                       class="w-full md:flex-1 px-6 py-4 border border-gray-200 rounded-2xl text-gray-400 font-bold hover:bg-gray-50 transition text-center text-sm">
                         CANCELAR
                     </a>
                     <button type="submit" 
