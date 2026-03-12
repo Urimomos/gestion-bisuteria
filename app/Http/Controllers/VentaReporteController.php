@@ -9,46 +9,48 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class VentaReporteController extends Controller
 {
-    public function index()
-    {
-        $hoy = Carbon::today();
+    public function index(Request $request)
+{
+    // Capturamos la fecha del buscador o usamos la de hoy por defecto
+    $fecha = $request->get('fecha', Carbon::today()->format('Y-m-d'));
 
-        // 1. Ingresos Totales de Hoy
-        $ingresosHoy = DB::table('ventas')
-            ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
-            ->whereDate('ventas.Fecha', $hoy)
-            ->select(DB::raw('SUM(ventas.Cantidad * productos.preventa) as total'))
-            ->first()->total ?? 0;
+    // 1. Ingresos Totales de la fecha seleccionada
+    $ingresosHoy = DB::table('ventas')
+        ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
+        ->whereDate('ventas.Fecha', $fecha)
+        ->select(DB::raw('SUM(ventas.Cantidad * productos.preventa) as total'))
+        ->first()->total ?? 0;
 
-        // 2. Desglose por Método de Pago
-        $metodos = DB::table('ventas')
-            ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
-            ->whereDate('ventas.Fecha', $hoy)
-            ->select('mpago', DB::raw('SUM(ventas.Cantidad * productos.preventa) as total'))
-            ->groupBy('mpago')
-            ->get();
+    // 2. Desglose por Método de Pago
+    $metodos = DB::table('ventas')
+        ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
+        ->whereDate('ventas.Fecha', $fecha)
+        ->select('mpago', DB::raw('SUM(ventas.Cantidad * productos.preventa) as total'))
+        ->groupBy('mpago')
+        ->get();
 
-        // 3. Listado detallado de ventas para la tabla
-        $detalleVentas = DB::table('ventas')
-            ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
-            ->join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
-            ->whereDate('ventas.Fecha', $hoy)
-            ->select(
-                'ventas.idventa',
-                'ventas.Fecha',
-                'ventas.idcliente',
-                'productos.nombre as producto',
-                'clientes.nombre as cliente',
-                'ventas.Cantidad',
-                'ventas.mpago',
-                DB::raw('(ventas.Cantidad * productos.preventa) as subtotal'),
-                'ventas.created_at' // <--- Este será nuestro "ID de transacción"
-            )
-            ->orderBy('ventas.created_at', 'desc')
-            ->get();
+    // 3. Listado detallado
+    $detalleVentas = DB::table('ventas')
+        ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
+        ->join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
+        ->whereDate('ventas.Fecha', $fecha)
+        ->select(
+            'ventas.idventa',
+            'ventas.Fecha',
+            'ventas.idcliente',
+            'productos.nombre as producto',
+            'clientes.nombre as cliente',
+            'ventas.Cantidad',
+            'ventas.mpago',
+            DB::raw('(ventas.Cantidad * productos.preventa) as subtotal'),
+            'ventas.created_at'
+        )
+        ->orderBy('ventas.created_at', 'desc')
+        ->get();
 
-        return view('reportes.ventas_diarias', compact('ingresosHoy', 'metodos', 'detalleVentas'));
-    }
+    // Enviamos 'fecha' SIEMPRE para evitar el error de Undefined Variable
+    return view('reportes.ventas_diarias', compact('ingresosHoy', 'metodos', 'detalleVentas', 'fecha'));
+}
 
     public function generarTicket($fecha, $idcliente, $momento)
 {
@@ -70,5 +72,6 @@ class VentaReporteController extends Controller
 
     return $pdf->stream('ticket_zacatelco.pdf');
 }
+
 
 }

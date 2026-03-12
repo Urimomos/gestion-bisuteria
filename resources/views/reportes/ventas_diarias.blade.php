@@ -1,4 +1,27 @@
 <x-layouts::master>
+
+
+    <div class="p-4 md:p-8 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+                <h2 class="text-2xl font-black text-[#1A1A1A] uppercase italic">💰 Reporte Financiero</h2>
+                {{-- Usamos la variable $fecha que viene del controlador --}}
+                <p class="text-[10px] text-gray-400 font-bold uppercase mt-1">
+                    Mostrando el día: {{ date('d/m/Y', strtotime($fecha)) }}
+                </p>
+            </div>
+
+            {{-- Formulario para cambiar de fecha --}}
+            <form action="{{ route('reportes.ventas') }}" method="GET" class="flex gap-2 w-full md:w-auto">
+                <input type="date" name="fecha" value="{{ $fecha }}" 
+                       class="flex-1 bg-white border-[#D4AF37]/30 rounded-2xl p-3 text-sm focus:ring-[#D4AF37]">
+                <button type="submit" class="bg-[#1A1A1A] text-[#FDF2D0] px-6 py-3 rounded-2xl font-bold text-xs uppercase hover:bg-black transition">
+                    Consultar
+                </button>
+            </form>
+        </div>
+
+
     <div class="p-4 md:p-8 max-w-6xl mx-auto">
         {{-- Encabezado Adaptable --}}
         <div class="mb-8 text-center md:text-left">
@@ -37,6 +60,8 @@
                 </div>
             </div>
         </div>
+
+
 
         {{-- Listado de Operaciones --}}
         <div class="space-y-4">
