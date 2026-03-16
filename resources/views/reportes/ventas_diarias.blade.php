@@ -23,13 +23,13 @@
 
 
     <div class="p-4 md:p-8 max-w-6xl mx-auto">
-        {{-- Encabezado Adaptable --}}
+        {{-- Encabezado Adaptable
         <div class="mb-8 text-center md:text-left">
             <h2 class="text-2xl font-black text-[#1A1A1A] uppercase tracking-tighter italic">💰 Reporte de Ventas</h2>
             <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">
                 Corte de caja: {{ date('d/m/Y') }}
             </p>
-        </div>
+        </div> --}}
 
         {{-- Grid de Indicadores --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
