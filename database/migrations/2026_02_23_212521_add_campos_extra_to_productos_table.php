@@ -12,7 +12,6 @@ return new class extends Migration
         public function up(): void
     {
         Schema::table('productos', function (Blueprint $table) {
-            // Añadimos los campos después del nombre
             $table->string('categoria')->nullable()->after('nombre');
             $table->string('ubicacion')->nullable()->after('categoria');
         });

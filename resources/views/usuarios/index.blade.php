@@ -61,7 +61,6 @@
 
             {{-- Listado de Usuarios --}}
             <div class="lg:col-span-2 space-y-4">
-                {{-- VISTA ESCRITORIO (Tabla) --}}
                 <div class="hidden md:block bg-white rounded-[2.5rem] shadow-xl border border-[#D4AF37]/20 overflow-hidden">
                     <table class="w-full text-left border-collapse">
                         <thead class="bg-gray-50 border-b border-gray-100">
@@ -112,7 +111,7 @@
                     </table>
                 </div>
 
-                {{-- VISTA MÓVIL (Cards) --}}
+                
                 <div class="md:hidden space-y-4">
                     @foreach($usuarios as $user)
                     <div class="bg-white p-5 rounded-[2rem] shadow-md border border-[#D4AF37]/10 flex justify-between items-center">

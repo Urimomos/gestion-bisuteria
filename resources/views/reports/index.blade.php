@@ -1,6 +1,5 @@
 <x-layouts::master>
     <div class="p-4 md:p-8">
-        {{-- Encabezado Adaptable --}}
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-[#1A1A1A]">Historial de Movimientos</h2>
@@ -16,8 +15,6 @@
                 </form>
             @endif
         </div>
-
-        {{-- VISTA PARA ESCRITORIO (Se oculta en móvil) --}}
         <div class="hidden lg:block bg-white rounded-3xl shadow-xl border border-[#D4AF37]/20 overflow-hidden">
             <table class="w-full text-left border-collapse">
                 <thead class="bg-[#1A1A1A] text-[#FDF2D0]">
@@ -74,7 +71,6 @@
             </table>
         </div>
 
-        {{-- VISTA PARA MÓVIL (Tarjetas) --}}
         <div class="lg:hidden space-y-4">
             @forelse($movimientos as $mov)
             <div class="bg-white p-5 rounded-3xl shadow-md border border-[#D4AF37]/10 space-y-3">

@@ -1,5 +1,4 @@
 <x-layouts::master>
-    {{-- Ajustamos el padding para móvil (p-4) y quitamos el max-w fijo para que fluya mejor --}}
     <div class="p-4 md:p-8 max-w-4xl mx-auto">
         <div class="mb-8 text-center md:text-left">
             <h2 class="text-2xl font-bold text-[#1A1A1A]">Registro de Nuevo Producto</h2>
@@ -23,7 +22,7 @@
             <div class="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-[#D4AF37]/20">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                     
-                    {{-- Nombre (Ocupa todo el ancho siempre) --}}
+                    {{-- Nombre  --}}
                     <div class="md:col-span-2">
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Nombre de la Pieza</label>
                         <input type="text" name="nombre" value="{{ old('nombre') }}" 
@@ -84,7 +83,7 @@
                     </div>
                 </div>
 
-                {{-- Botones: En móvil se apilan, en PC van lado a lado --}}
+                {{-- Botones --}}
                 <div class="mt-10 flex flex-col-reverse md:flex-row justify-end gap-4">
                     <a href="{{ route('inventory.index') }}" 
                        class="w-full md:w-auto px-8 py-4 text-center text-gray-400 font-bold hover:text-gray-600 transition-colors text-sm">

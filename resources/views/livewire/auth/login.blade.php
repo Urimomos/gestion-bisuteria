@@ -1,7 +1,7 @@
 <x-layouts::auth>
-    {{-- Estilos de emergencia para forzar el color negro --}}
+    
     <style>
-        /* 1. Limpieza de colores globales (Textos y Etiquetas) */
+        
         [data-flux-control], 
         [data-flux-label], 
         [data-flux-heading], 
@@ -10,15 +10,15 @@
             color: #1A1A1A !important;
         }
 
-        /* 2. Corregir el doble recuadro: Atacamos el contenedor del input */
+       
         [data-flux-input] {
             background-color: #ffffff !important;
             border: 2px solid #D4AF37 !important;
-            border-radius: 0.75rem !important; /* Bordes redondeados elegantes */
+            border-radius: 0.75rem !important; 
             box-shadow: none !important;
         }
 
-        /* 3. Quitamos el estilo por defecto del input interno para que no choque */
+       
         [data-flux-input] input {
             background: transparent !important;
             border: none !important;
@@ -27,7 +27,7 @@
             outline: none !important;
         }
 
-        /* 4. Estilo para el botón principal (Negro Zacatelco) */
+      
         button[type="submit"] {
             background-color: #1A1A1A !important;
             border: none !important;
@@ -43,8 +43,7 @@
             color: #ffffff !important;
         }
 
-        /* 5. Enlaces en Dorado */
-        a, [data-flux-link] {
+               a, [data-flux-link] {
             color: #D4AF37 !important;
             font-weight: 700 !important;
             text-decoration: none !important;

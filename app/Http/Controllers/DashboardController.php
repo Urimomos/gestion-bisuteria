@@ -11,20 +11,13 @@ class DashboardController extends Controller
    public function index()
     {
         $hoy = now()->format('Y-m-d');
-
-        // 1. Contar ventas de hoy
         $ventasHoy = DB::table('ventas')
             ->whereDate('Fecha', $hoy)
             ->count();
-
-        // 2. Calcular ganancias del día (opcional si quieres lucirte)
-        // Unimos con productos para saber el precio de venta (preventa)
         $gananciaHoy = DB::table('ventas')
             ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
             ->whereDate('ventas.Fecha', $hoy)
             ->sum(DB::raw('ventas.Cantidad * productos.preventa'));
-
-        // 3. Productos con bajo stock
         $productosBajos = DB::table('productos')
             ->where('inventario', '<=', 5)
             ->count();

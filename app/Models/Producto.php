@@ -10,12 +10,12 @@ class Producto extends Model
     use SoftDeletes;
    protected $primaryKey = 'idproducto';
     
-    // Nombre de la tabla
+   
     protected $table = 'productos';
 
     protected $fillable = [
         'nombre',
-        'categoria', // Nuevo
+        'categoria', 
         'ubicacion',
         'precompra',
         'preventa',

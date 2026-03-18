@@ -10,12 +10,12 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\VentaReporteController;
 
-// 1. Redirección inicial
+
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
 
-// 2. RUTAS PROTEGIDAS
+
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios.index');
@@ -44,7 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Módulo de Ventas y Clientes
-    // --- Módulo de Ventas (Solo el proceso de cobrar) ---
     Route::prefix('ventas')->group(function () {
         Route::get('/buscar', [VentaController::class, 'seleccionarCliente'])->name('ventas.buscar');
         Route::get('/nueva/{idcliente}', [VentaController::class, 'create'])->name('ventas.create');
@@ -53,14 +52,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/quitar/{indice}', [VentaController::class, 'quitarDelCarrito'])->name('ventas.quitar');
     });
     
-    // --- NUEVO: Módulo Independiente de Clientes (CRUD completo) ---
     Route::prefix('clientes')->group(function () {
-        Route::get('/', [ClienteController::class, 'index'])->name('clientes.index'); // Lista de todos
-        Route::get('/nuevo', [ClienteController::class, 'create'])->name('clientes.create'); // Formulario
-        Route::post('/guardar', [ClienteController::class, 'store'])->name('clientes.store'); // Guardar
-        Route::get('/{id}/editar', [ClienteController::class, 'edit'])->name('clientes.edit'); // Vista editar
-        Route::put('/{id}', [ClienteController::class, 'update'])->name('clientes.update'); // Actualizar
-        Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy'); // Borrar
+        Route::get('/', [ClienteController::class, 'index'])->name('clientes.index'); 
+        Route::get('/nuevo', [ClienteController::class, 'create'])->name('clientes.create'); 
+        Route::post('/guardar', [ClienteController::class, 'store'])->name('clientes.store'); 
+        Route::get('/{id}/editar', [ClienteController::class, 'edit'])->name('clientes.edit'); 
+        Route::put('/{id}', [ClienteController::class, 'update'])->name('clientes.update'); 
+        Route::delete('/{id}', [ClienteController::class, 'destroy'])->name('clientes.destroy'); 
     });
 
     // Reportes de Dinero y Ventas (Solo Maestro)

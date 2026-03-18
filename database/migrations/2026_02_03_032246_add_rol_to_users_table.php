@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
        Schema::table('users', function (Blueprint $table) {
-        // Por defecto todos serán 'empleado' para mayor seguridad
         $table->string('rol')->default('empleado')->after('email');
     });
     }

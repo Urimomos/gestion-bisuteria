@@ -1,5 +1,4 @@
 <x-layouts::master>
-    {{-- Reducimos el padding en móvil (p-4) para ganar espacio --}}
     <div class="p-4 md:p-8 max-w-2xl mx-auto">
         <div class="mb-8 text-center md:text-left">
             <h2 class="text-2xl font-bold text-[#1A1A1A] tracking-tight">Nuevo Registro de Cliente</h2>
@@ -18,7 +17,7 @@
                            oninput="this.value = this.value.replace(/[0-9]/g, '')" required>
                 </div>
 
-                {{-- Apellidos - Se apilan en móvil, lado a lado en PC --}}
+             
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div>
                         <label class="block text-[10px] font-bold text-[#D4AF37] uppercase mb-2 ml-1 tracking-widest">Apellido Paterno</label>
@@ -51,7 +50,7 @@
                 </div>
             </div>
 
-            {{-- Botones - Se apilan en móvil con el principal arriba --}}
+            {{-- Botones --}}
             <div class="mt-10 flex flex-col-reverse md:flex-row gap-4">
                 <a href="{{ route('clientes.index') }}" 
                    class="w-full md:flex-1 py-4 bg-gray-50 text-gray-400 rounded-2xl font-bold hover:bg-gray-100 transition-all text-center text-xs uppercase tracking-widest">

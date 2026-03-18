@@ -11,11 +11,9 @@ class UserController extends Controller
 {
     public function index()
     {
-        // Solo el maestro puede entrar aquí
         if (Auth::user()->rol !== 'maestro') {
             abort(403, 'No tienes permiso para gestionar empleados.');
         }
-
         $usuarios = User::all();
         return view('usuarios.index', compact('usuarios'));
     }
@@ -46,12 +44,9 @@ class UserController extends Controller
         }
     
         $user = \App\Models\User::findOrFail($id);
-        
-        // Evitar que el maestro se borre a sí mismo
         if ($user->id === Auth::id()) {
             return back()->with('error', 'No puedes eliminar tu propia cuenta.');
         }
-    
         $user->delete();
         return back()->with('success', 'Acceso revocado correctamente.');
     }

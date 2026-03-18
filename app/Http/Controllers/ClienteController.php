@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
-    // Vista principal del CRUD: Listado de clientes
     public function index(Request $request)
     {
         $search = $request->get('search');
@@ -23,13 +22,11 @@ class ClienteController extends Controller
         return view('clientes.index', compact('clientes'));
     }
 
-    // Formulario para crear un cliente nuevo (fuera de ventas)
     public function create()
     {
         return view('clientes.create');
     }
 
-    // Guardado normal para el CRUD
     public function store(Request $request)
     {
         $request->validate([
@@ -41,7 +38,6 @@ class ClienteController extends Controller
         return redirect()->route('clientes.index')->with('success', 'Cliente guardado con éxito.');
     }
 
-    // Registro rápido (se mantiene para el flujo de ventas)
     public function registrarRapido(Request $request)
     {
         $request->validate([
@@ -59,7 +55,7 @@ class ClienteController extends Controller
         return redirect()->route('ventas.create', ['idcliente' => $cliente->idcliente]);
     }
 
-    // Función de edición (para retornar la vista si no usas modales)
+    // Función de edición
     public function edit($id)
     {
         $cliente = Cliente::findOrFail($id);

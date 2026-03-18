@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
-    // Muestra la lista de productos disponibles para el cliente seleccionado
     public function create($idcliente)
     {
         $cliente = Cliente::findOrFail($idcliente);
@@ -17,7 +16,6 @@ class VentaController extends Controller
         return view('ventas.create', compact('cliente', 'productos'));
     }
 
-    // Agrega un producto a la lista temporal (sesión)
     public function agregarAlCarrito(Request $request)
     {
         $request->validate([
@@ -26,15 +24,11 @@ class VentaController extends Controller
         ]);
 
         $producto = Producto::findOrFail($request->idproducto);
-
-        // Validar stock antes de agregar a la lista
         if ($producto->inventario < $request->cantidad) {
             return back()->with('error', "Solo quedan {$producto->inventario} unidades de {$producto->nombre}");
         }
 
         $carrito = session()->get('carrito', []);
-
-        // Estructura del item en la lista
         $carrito[] = [
             'idproducto' => $producto->idproducto,
             'nombre' => $producto->nombre,
@@ -47,8 +41,6 @@ class VentaController extends Controller
 
         return back()->with('success', 'Producto añadido a la lista.');
     }
-
-    // Quita un producto de la lista temporal
     public function quitarDelCarrito($indice)
     {
         $carrito = session()->get('carrito', []);
@@ -61,7 +53,6 @@ class VentaController extends Controller
         return back()->with('success', 'Producto quitado de la lista.');
     }
 
-    // Guarda toda la venta en la base de datos
     public function store(Request $request) 
     {
         $carrito = session()->get('carrito', []);
@@ -74,13 +65,12 @@ class VentaController extends Controller
         try {
             $ahora = now();
             foreach ($carrito as $item) {
-                // 1. Verificar stock final por seguridad
                 $producto = Producto::lockForUpdate()->find($item['idproducto']);
                 if ($producto->inventario < $item['cantidad']) {
                     throw new \Exception("Stock insuficiente para: " . $item['nombre']);
                 }
 
-                // 2. Registrar en la tabla VENTAS
+                
                 DB::table('ventas')->insert([
                     'Fecha' => now()->format('Y-m-d'),
                     'mpago' => $request->mpago,
@@ -91,12 +81,11 @@ class VentaController extends Controller
                     'updated_at' => $ahora,
                 ]);
 
-                // 3. Descontar del inventario
                 $producto->decrement('inventario', $item['cantidad']);
             }
 
             DB::commit();
-            session()->forget('carrito'); // Limpiar la lista después del éxito
+            session()->forget('carrito'); 
 
             $momento = now()->format('Y-m-d H:i:s');
 

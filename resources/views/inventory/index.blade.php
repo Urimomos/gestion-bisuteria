@@ -1,6 +1,6 @@
 <x-layouts::master>
     <div class="p-4 md:p-8">
-        {{-- Encabezado Adaptable --}}
+        {{-- Encabezado --}}
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
                 <h2 class="text-2xl font-bold text-[#1A1A1A]">Catálogo de Inventario</h2>
@@ -22,7 +22,7 @@
             </form>
         </div>
 
-        {{-- VISTA PARA ESCRITORIO (Se oculta en móvil) --}}
+        {{-- VISTA PARA ESCRITORIO --}}
         <div class="hidden md:block bg-white rounded-3xl shadow-xl border border-[#D4AF37]/20 overflow-hidden">
             <table class="w-full text-left border-collapse">
                 <thead class="bg-[#FDF2D0]/50 border-b border-[#D4AF37]/20">
@@ -75,7 +75,7 @@
             </table>
         </div>
 
-        {{-- VISTA PARA MÓVIL (Tarjetas) --}}
+        {{-- VISTA PARA MÓVIL --}}
         <div class="md:hidden space-y-4">
             @foreach($productos as $producto)
             <div class="bg-white p-4 rounded-3xl shadow-md border border-[#D4AF37]/10 flex gap-4 items-center">

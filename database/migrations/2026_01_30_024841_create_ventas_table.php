@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id('idventa');
             $table->date('Fecha');
-            $table->enum('mpago', ['Efectivo', 'Tarjeta']); // Medio de pago
+            $table->enum('mpago', ['Efectivo', 'Tarjeta']); 
             $table->unsignedBigInteger('idproducto');
             $table->unsignedBigInteger('idcliente');
             $table->integer('Cantidad');

@@ -13,7 +13,7 @@ class ClienteGeneralSeeder extends Seeder
      */
    public function run(): void
     {
-        // Insertamos el cliente con ID 1 manualmente
+        
         DB::table('clientes')->insertOrIgnore([
             'idcliente' => 1,
             'nombre' => 'CLIENTE GENERAL',

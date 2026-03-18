@@ -59,7 +59,7 @@
                                class="w-full bg-[#FDF2D0]/20 border-[#D4AF37]/30 rounded-2xl p-4 text-sm focus:ring-[#D4AF37]" required>
                     </div>
 
-                    {{-- NUEVO: Costo de Precompra --}}
+                    {{-- NUEVO--}}
                     <div>
                         <label class="block text-[10px] font-bold mb-2 uppercase tracking-widest text-gray-400">Costo (Precompra)</label>
                         <div class="relative">

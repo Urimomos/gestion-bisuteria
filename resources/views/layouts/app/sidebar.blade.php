@@ -42,5 +42,5 @@
 </flux:sidebar>
 
 <flux:main>
-    {{ $slot }} {{-- AQUÍ ES DONDE SE INYECTA EL DASHBOARD --}}
+    {{ $slot }} 
 </flux:main>

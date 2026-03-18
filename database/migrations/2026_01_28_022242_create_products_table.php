@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
        Schema::create('productos', function (Blueprint $table) {
-    $table->id('idproducto'); // Usamos el nombre del diagrama
+    $table->id('idproducto'); 
     $table->string('nombre', 40);
-    $table->decimal('precompra', 8, 2); // Costo
-    $table->decimal('preventa', 8, 2);  // Precio de venta
+    $table->decimal('precompra', 8, 2); 
+    $table->decimal('preventa', 8, 2);  
     $table->integer('inventario')->default(0); 
     $table->string('imagen')->nullable();
     $table->timestamps();

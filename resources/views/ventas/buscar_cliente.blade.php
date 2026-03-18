@@ -14,7 +14,7 @@
                 <a href="{{ route('clientes.create') }}" class="text-[10px] font-bold text-[#D4AF37] hover:underline uppercase tracking-widest">+ REGISTRAR NUEVO CLIENTE</a>
             </div>
             
-            {{-- BOTÓN VENTA RÁPIDA --}}
+            {{-- VENTA RÁPIDA --}}
             <div class="mb-8">
                 <a href="{{ route('ventas.create', ['idcliente' => 1]) }}" 
                    class="flex flex-col md:flex-row items-center justify-center gap-2 w-full bg-[#D4AF37] text-white p-5 rounded-2xl font-bold shadow-lg hover:bg-[#B8962E] transition-all group">
@@ -65,7 +65,6 @@
         </div>
     </div>
 
-    {{-- Script para apertura automática del ticket --}}
     @if(session('imprimir_ticket'))
         <script>
             const urlTicket = "{{ session('imprimir_ticket') }}";

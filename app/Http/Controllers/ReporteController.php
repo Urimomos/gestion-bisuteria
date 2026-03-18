@@ -10,7 +10,6 @@ class ReporteController extends Controller
     {
             $movimientos = DB::table('edita')
             ->join('users', 'edita.idusuario', '=', 'users.id')
-            // Cambiamos join por leftJoin para que no desaparezcan al borrar el producto
             ->leftJoin('productos', 'edita.idproducto', '=', 'productos.idproducto')
             ->select(
                 'edita.*', 

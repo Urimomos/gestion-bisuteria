@@ -57,7 +57,7 @@
             </table>
         </div>
 
-        {{-- VISTA MÓVIL (Cards) --}}
+        
         <div class="lg:hidden space-y-4">
             @forelse($clientes as $cliente)
             <div class="bg-white p-5 rounded-3xl shadow-md border border-[#D4AF37]/10 flex flex-col gap-4">
@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    {{-- MODAL DE EDICIÓN RESPONSIVO --}}
+    {{-- MODAL  --}}
     <div id="editModal" class="fixed inset-0 bg-black/60 hidden items-end sm:items-center justify-center z-[100] p-0 sm:p-4 backdrop-blur-sm transition-all">
         <div class="bg-white p-6 sm:p-8 rounded-t-[2.5rem] sm:rounded-[2.5rem] w-full max-w-lg shadow-2xl border-t-4 border-[#D4AF37] animate-in slide-in-from-bottom duration-300">
             <div class="flex justify-between items-center mb-6">

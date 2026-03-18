@@ -14,8 +14,8 @@ class UsuarioPrincipalSeeder extends Seeder
             'name' => 'Dueña',
             'email' => 'bisuteria.miranda.mm@gmail.com',
             'password' => Hash::make('proyectosgB'),
-            'rol' => 'maestro', // Asegúrate de asignar el rol aquí
-            'email_verified_at' => now(), // Útil para que no pida verificar correo al desplegar
+            'rol' => 'maestro',
+            'email_verified_at' => now(), 
         ]);
     }
 }

@@ -10,7 +10,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            {{-- SECCIÓN 1: SELECTOR DE PRODUCTOS --}}
+            {{--  SELECTOR DE PRODUCTOS --}}
             <div class="lg:col-span-1">
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-[#D4AF37]/20">
                     <h3 class="text-sm font-bold mb-4 uppercase text-gray-700">1. Agregar a la lista</h3>
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            {{-- SECCIÓN 2: LA CUENTA ACTUAL --}}
+            {{--  CUENTA ACTUAL --}}
             <div class="lg:col-span-2">
                 <div class="bg-[#ffffff] rounded-3xl shadow-2xl overflow-hidden flex flex-col min-h-[450px]">
                     <div class="p-6 border-b border-white/10 flex justify-between items-center bg-white/5">
@@ -51,7 +51,7 @@
                         <span class="bg-[#D4AF37] text-white text-[10px] px-2 py-1 rounded-md font-bold">TIENDA</span>
                     </div>
 
-                    {{-- Listado de productos en sesión --}}
+                    {{-- Listado de productos  --}}
                     <div class="flex-1 p-6 space-y-3 overflow-y-auto max-h-[300px]">
                         @php $totalCuenta = 0; @endphp
                         

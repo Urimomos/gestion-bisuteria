@@ -12,11 +12,10 @@ class ProductController extends Controller
 {
     public function store(Request $request)
     {
-        // 1. Validamos los datos incluyendo los nuevos campos
         $request->validate([
             'nombre' => 'required|max:40',
-            'categoria' => 'nullable|string|max:50', // Nuevo
-            'ubicacion' => 'nullable|string|max:100', // Nuevo
+            'categoria' => 'nullable|string|max:50', 
+            'ubicacion' => 'nullable|string|max:100', 
             'precompra' => 'required|numeric',
             'preventa' => 'required|numeric',
             'inventario' => 'required|integer',
@@ -26,24 +25,20 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
-            // 2. Manejo de la imagen
             $path = null;
             if ($request->hasFile('imagen')) {
                 $path = $request->file('imagen')->store('productos', 'public');
             }
-
-            // 3. Guardamos el producto con los nuevos campos
             $producto = Producto::create([
                 'nombre' => $request->nombre,
-                'categoria' => $request->categoria, // Nuevo
-                'ubicacion' => $request->ubicacion, // Nuevo
+                'categoria' => $request->categoria, 
+                'ubicacion' => $request->ubicacion, 
                 'precompra' => $request->precompra,
                 'preventa' => $request->preventa,
                 'inventario' => $request->inventario,
                 'imagen' => $path,
             ]);
 
-            // 4. Registramos en el historial
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,
@@ -72,8 +67,8 @@ class ProductController extends Controller
                      ->orWhere('categoria', 'LIKE', "%{$query}%");
         })
         ->orderBy('idproducto', 'desc')
-        ->paginate(10) // <--- Solo mostrará 10 por página
-        ->withQueryString(); // <--- Mantiene la búsqueda al cambiar de página
+        ->paginate(10) 
+        ->withQueryString(); 
 
         return view('inventory.index', compact('productos'));
     }
@@ -88,13 +83,11 @@ class ProductController extends Controller
     {
         $producto = Producto::findOrFail($idproducto);
         $cantidadAnterior = $producto->inventario;
-    
-        // 1. Agregamos 'precompra' a la validación
         $request->validate([
             'nombre' => 'required|max:40',
             'categoria' => 'nullable|string|max:50',
             'ubicacion' => 'nullable|string|max:100',
-            'precompra' => 'required|numeric|min:0', // <--- Validamos el costo
+            'precompra' => 'required|numeric|min:0',
             'preventa' => 'required|numeric|min:0',
             'inventario' => 'required|integer|min:0',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
@@ -102,25 +95,21 @@ class ProductController extends Controller
     
         DB::beginTransaction();
         try {
-            // 2. Manejo de la nueva imagen
             if ($request->hasFile('imagen')) {
                 if ($producto->imagen) {
                     Storage::disk('public')->delete($producto->imagen);
                 }
                 $producto->imagen = $request->file('imagen')->store('productos', 'public');
             }
-    
-            // 3. Actualización de campos (Incluyendo precompra)
             $producto->nombre = $request->nombre;
             $producto->categoria = $request->categoria;
             $producto->ubicacion = $request->ubicacion;
-            $producto->precompra = $request->precompra; // <--- Guardamos el costo
+            $producto->precompra = $request->precompra; 
             $producto->preventa = $request->preventa;
             $producto->inventario = $request->inventario;
             
             $producto->save();
     
-            // 4. Registro en historial
             DB::table('edita')->insert([
                 'idusuario' => Auth::id(),
                 'idproducto' => $producto->idproducto,

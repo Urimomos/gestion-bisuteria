@@ -1,6 +1,4 @@
 <x-layouts::master>
-
-
     <div class="p-4 md:p-8 max-w-6xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
             <div>
@@ -23,14 +21,6 @@
 
 
     <div class="p-4 md:p-8 max-w-6xl mx-auto">
-        {{-- Encabezado Adaptable
-        <div class="mb-8 text-center md:text-left">
-            <h2 class="text-2xl font-black text-[#1A1A1A] uppercase tracking-tighter italic">💰 Reporte de Ventas</h2>
-            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">
-                Corte de caja: {{ date('d/m/Y') }}
-            </p>
-        </div> --}}
-
         {{-- Grid de Indicadores --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {{-- Venta Total --}}
@@ -113,7 +103,7 @@
                 </table>
             </div>
 
-            {{-- VISTA MÓVIL (Cards tipo Ticket) --}}
+            {{-- VISTA MÓVIL --}}
             <div class="lg:hidden space-y-4">
                 @forelse($detalleVentas as $v)
                 <div class="bg-white p-5 rounded-[2rem] shadow-md border border-gray-100 flex flex-col gap-3 relative overflow-hidden">

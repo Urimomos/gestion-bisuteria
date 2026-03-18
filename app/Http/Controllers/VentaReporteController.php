@@ -11,17 +11,14 @@ class VentaReporteController extends Controller
 {
     public function index(Request $request)
 {
-    // Capturamos la fecha del buscador o usamos la de hoy por defecto
     $fecha = $request->get('fecha', Carbon::today()->format('Y-m-d'));
 
-    // 1. Ingresos Totales de la fecha seleccionada
     $ingresosHoy = DB::table('ventas')
         ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
         ->whereDate('ventas.Fecha', $fecha)
         ->select(DB::raw('SUM(ventas.Cantidad * productos.preventa) as total'))
         ->first()->total ?? 0;
 
-    // 2. Desglose por Método de Pago
     $metodos = DB::table('ventas')
         ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
         ->whereDate('ventas.Fecha', $fecha)
@@ -29,7 +26,6 @@ class VentaReporteController extends Controller
         ->groupBy('mpago')
         ->get();
 
-    // 3. Listado detallado
     $detalleVentas = DB::table('ventas')
         ->join('productos', 'ventas.idproducto', '=', 'productos.idproducto')
         ->join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
@@ -48,7 +44,6 @@ class VentaReporteController extends Controller
         ->orderBy('ventas.created_at', 'desc')
         ->get();
 
-    // Enviamos 'fecha' SIEMPRE para evitar el error de Undefined Variable
     return view('reportes.ventas_diarias', compact('ingresosHoy', 'metodos', 'detalleVentas', 'fecha'));
 }
 
@@ -59,7 +54,7 @@ class VentaReporteController extends Controller
         ->join('clientes', 'ventas.idcliente', '=', 'clientes.idcliente')
         ->where('ventas.Fecha', $fecha)
         ->where('ventas.idcliente', $idcliente)
-        ->where('ventas.created_at', $momento) // <--- Filtro por el momento exacto
+        ->where('ventas.created_at', $momento) 
         ->select('ventas.*', 'productos.nombre as producto', 'productos.preventa', 'clientes.nombre as cliente')
         ->get();
 

@@ -9,7 +9,6 @@ class HistorialController extends Controller
 {
     public function index()
     {
-        // Usamos $movimientos para que tu vista no truene
         $movimientos = DB::table('edita')
             ->join('users', 'edita.idusuario', '=', 'users.id')
             ->leftJoin('productos', 'edita.idproducto', '=', 'productos.idproducto')
@@ -18,10 +17,8 @@ class HistorialController extends Controller
                 'users.name as usuario_nombre', 
                 'productos.nombre as producto_nombre'
             )
-            ->orderBy('edita.fecha', 'desc') // Nota: usa 'fecha' o 'created_at' según tu tabla
+            ->orderBy('edita.fecha', 'desc') 
             ->get();
-
-        // Apuntamos a la carpeta reports.index
         return view('reports.index', compact('movimientos'));
     }
 
